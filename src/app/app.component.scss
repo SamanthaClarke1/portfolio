@@ -1,0 +1,43 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-perspective: 1px;
+  perspective: 1px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative;
+}
+div.parallax {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+  
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+div.parallax::after {
+	content: "";
+  background-image: url('https://placekitten.com/g/900/700');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	position: absolute;
+	top: 0px; left: 0px; right: 0px; bottom: 0px;
+	z-index: -1;
+  /* slightly larger scale to avoid ugly blur-bleeding */ 
+	transform: translateZ(-3px) scale(4.1); 
+	-webkit-transform: translateZ(-3px) scale(4.1);
+  opacity: 0.7;
+}
