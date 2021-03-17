@@ -4,7 +4,7 @@ import { Project } from '../project';
 @Component({
   selector: 'app-past-projects',
   templateUrl: './past-projects.component.html',
-  styleUrls: ['./past-projects.component.scss']
+  styleUrls: ['./past-projects.component.scss', '../content/content-section.scss']
 })
 export class PastProjectsComponent implements OnInit {
   projects: Project[] = [
