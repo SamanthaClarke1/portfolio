@@ -1,0 +1,13 @@
+<div class="project-holder">
+  <div class="project col-12 col-sm-10 col-md-8">
+    <h2 class="header">{{project.title}}</h2>
+    <div class="images">
+      <div class="img-prev col" 
+        [ngClass]="{'active': (i == 1)}" 
+        *ngFor="let image of project.images; index as i;">
+        <img class="img" [src]="image" />
+      </div>
+    </div>
+    <div class="blurb">{{project.blurb}}</div>
+  </div>
+</div>

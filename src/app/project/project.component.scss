@@ -1,0 +1,49 @@
+@import "~/src/_variables.scss";
+
+.project-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.project {
+  text-align: center;
+
+  .header {
+    color: $blacktext;
+    margin: 1.5em 0em;
+  }
+  .blurb {
+    color: $blacktext2;
+    margin: 2em;
+    font-size: 1.15em;
+  }
+
+  .images {
+    display: flex;
+    width: 100%;
+
+    .img-prev {
+      opacity: 0.8;
+      padding: 0.2em;
+      
+      img {
+        margin-left: -10%;
+        width: 120%;
+        border-radius: 3px;
+        box-shadow: $z-shadow-1;
+      }
+    }
+    .img-prev.active {
+      opacity: 1;
+      z-index: 1;
+      img {
+        margin-top: 15%;
+        margin-left: -25%;
+        width: 150%;
+        box-shadow: $z-shadow-2;
+      }
+    }
+  }
+}

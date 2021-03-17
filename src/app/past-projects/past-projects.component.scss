@@ -1,0 +1,12 @@
+@import "~/src/_variables.scss";
+
+.projects {
+  padding-top: 5em;
+  padding-bottom: 3em;
+  text-align: center;
+
+  .header {
+    color: $blacktext;
+    font-weight: 600;
+  }
+}
