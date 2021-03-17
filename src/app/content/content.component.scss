@@ -1,0 +1,10 @@
+@import "~/src/_variables.scss";
+
+.content-outer {
+  width: 100%;
+  min-height: 50vh;
+  background-color: $white;
+  perspective: 2px;
+  -webkit-perspective: 2px;
+  box-shadow: $z-shadow-1;
+}
