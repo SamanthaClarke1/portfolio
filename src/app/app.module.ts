@@ -14,6 +14,13 @@ import { ContactMeComponent } from './contact-me/contact-me.component';
 import { FooterComponent } from './footer/footer.component';
 import { StatbarComponent } from './statbar/statbar.component';
 
+import { AngularFireModule } from '@angular/fire'
+import { AngularFirestoreModule } from '@angular/fire/firestore'
+import { AngularFireStorageModule } from '@angular/fire/storage'
+import { AngularFireAuthModule } from '@angular/fire/auth'
+import { environment } from '../environments/environment'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +37,13 @@ import { StatbarComponent } from './statbar/statbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

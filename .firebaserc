@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "samanthaclarke-portfolio": {
+      "hosting": {
+        "portfolio": [
+          "samanthaclarke-portfolio"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "samanthaclarke-portfolio"
+  }
+}
