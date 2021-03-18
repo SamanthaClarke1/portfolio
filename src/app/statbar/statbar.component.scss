@@ -1,0 +1,21 @@
+@import "~/src/_variables.scss";
+
+.statbar {
+  display: flex;
+  align-items: center;
+  color: $whitetext;
+  border-radius: 5px;
+  background-color: $altcolor;
+  margin: .33em 0em;
+
+  :after {
+    content: "";
+    background-color: $keycolor;
+    width: 100%;
+    height: 100%;
+  }
+
+  .title {
+    margin-left: 1em;
+  }
+}

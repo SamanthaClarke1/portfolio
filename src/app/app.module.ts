@@ -9,6 +9,10 @@ import { ContentComponent } from './content/content.component';
 import { ProjectComponent } from './project/project.component';
 import { PastProjectsComponent } from './past-projects/past-projects.component';
 import { AboutMeComponent } from './about-me/about-me.component';
+import { KeyPointComponent } from './key-point/key-point.component';
+import { ContactMeComponent } from './contact-me/contact-me.component';
+import { FooterComponent } from './footer/footer.component';
+import { StatbarComponent } from './statbar/statbar.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +21,11 @@ import { AboutMeComponent } from './about-me/about-me.component';
     ContentComponent,
     ProjectComponent,
     PastProjectsComponent,
-    AboutMeComponent
+    AboutMeComponent,
+    KeyPointComponent,
+    ContactMeComponent,
+    FooterComponent,
+    StatbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,23 @@
-<div class="about-me content-section">
+<div class="about-me content-section container">
   <h1 class="header">About Me</h1>
+
+  <div class="row">
+    <div class="col-12 col-lg-4 profile-img-holder">
+      <div class="col-8 col-lg-10">
+        <img class="img profile-img w-100" src="/assets/images/profile.jpg" />
+      </div>
+    </div>
+  
+    <div class="col-12 col-lg-8">
+      <app-statbar [statbar]="stat" *ngFor="let stat of stats"></app-statbar> 
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="blurb">
+      Lorem ipsum dolor sit amet non consectetur adipiscing elit, et do eiusmod tempor acididunt
+    </div>
+  </div>
+  <div class="col-12 d-flex mt-1">
+    <app-key-point class="col" [keypoint]="point" *ngFor="let point of keypoints"></app-key-point>  
+  </div>
 </div>

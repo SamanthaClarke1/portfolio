@@ -4,20 +4,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 68vh;
+  min-height: 70vh;
 }
 
 .project {
   text-align: center;
 
   .header {
-    color: $blacktext;
-    margin: 1.5em 0em;
+    margin-bottom: 1.5em;
   }
   .blurb {
-    color: $blacktext2;
     margin: 2em;
-    font-size: 1.15em;
   }
 
   .images {

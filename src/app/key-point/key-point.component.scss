@@ -1,0 +1,25 @@
+@import "~/src/_variables.scss";
+
+.keypoint {
+  text-align: center;
+  padding: .5em;
+
+  .icon-holder {
+    width: 64px;
+    height: 64px;
+    font-size: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    color: $whitetext;
+    background: $keycolor;
+    border-radius: .25em;
+  }
+  .header {
+    margin-top: .5em;
+  }
+  .blurb {
+    font-size: 1em;
+  }
+}

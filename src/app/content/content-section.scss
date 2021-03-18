@@ -4,9 +4,23 @@
   padding-top: 5em;
   padding-bottom: 3em;
   text-align: center;
-  
+  min-height: 70vh;
+
   .header {
     color: $blacktext;
     font-weight: 600;
   }
+  .blurb {
+    color: $blacktext2;
+    font-size: 1.15em;
+  }
+}
+
+.header {
+  color: $blacktext;
+  font-weight: 600;
+}
+.blurb {
+  color: $blacktext2;
+  font-size: 1.15em;
 }
