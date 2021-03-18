@@ -1,5 +1,17 @@
-<div class="statbar">
-  <h5 class="title">{{statbar.title}}</h5>
-  <i class="fa fa-lg" [ngClass]="statbar.icon"></i>
-  <p>{{statbar.percent}}</p>
+<div class="statbar-holder">
+  <div class="statbar">
+    <span class="fillme" [style]="{'width': statbar.percent+'%'}"></span>
+    <!--
+      <i class="fa fa-lg" [ngClass]="statbar.icon"></i>
+      <p>{{statbar.percent}}</p>
+    -->
+    <div class="content w-100">
+      <h5 class="title">{{statbar.title}}</h5>
+      <h5 class="percent">{{statbar.percent}}%</h5>
+    </div>
+  </div>
+
+  <div class="icon-holder">
+    <i [ngClass]="[statbar.icon, statbar.color+'-text']"></i>
+  </div>
 </div>

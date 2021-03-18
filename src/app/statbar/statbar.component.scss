@@ -1,21 +1,50 @@
 @import "~/src/_variables.scss";
 
+$border-radius: 8px;
+$margin: .3em;
+$height: 2.2em;
+
+.statbar-holder {
+  display: flex;
+
+  .icon-holder {
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+  }
+}
 .statbar {
   display: flex;
+  width: 100%;
   align-items: center;
   color: $whitetext;
-  border-radius: 5px;
+  border-radius: $border-radius;
   background-color: $altcolor;
-  margin: .33em 0em;
+  margin: $margin 0em;
+  height: $height;
 
-  :after {
-    content: "";
-    background-color: $keycolor;
-    width: 100%;
-    height: 100%;
+  .content {
+    display: flex;
+    height: $height;
+    position: absolute;
+    justify-content: space-between;
+    padding-left: 1em;
+    padding-right: calc(2em + 48px);
+    
+    .title, .percent {
+      margin-top: .2em;
+    }
   }
 
-  .title {
-    margin-left: 1em;
+  span.fillme {
+    display: block;
+    width: 50%;
+    height: 100%;
+    border-radius: $border-radius;
+    background-color: $keycolor;
+    position: relative;
+    overflow: hidden;
   }
 }

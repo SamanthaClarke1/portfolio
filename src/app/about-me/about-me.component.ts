@@ -16,10 +16,11 @@ export class AboutMeComponent implements OnInit {
   ]
 
   stats: Array<StatBar> = [
-    {icon: "fa-save", color: "teal", title: "Saving", percent: 80},
-    {icon: "fa-trash", color: "red", title: "Deleting", percent: 20},
-    {icon: "fa-edit", color: "green", title: "Editing", percent: 40},
-    {icon: "fa-magic", color: "purple", title: "Magic", percent: 75},
+    {icon: "fab fa-html5", color: "deep-orange", title: "HTML5", percent: 90},
+    {icon: "fab fa-js-square", color: "amber", title: "JavaScript", percent: 90},
+    {icon: "fab fa-css3-alt", color: "blue", title: "CSS3", percent: 80},
+    {icon: "fab fa-python", color: "indigo", title: "Python", percent: 65},
+    {icon: "fab fa-angular", color: "red", title: "Angular", percent: 60},
   ]
 
   constructor() { }

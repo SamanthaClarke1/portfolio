@@ -17,7 +17,9 @@
       Lorem ipsum dolor sit amet non consectetur adipiscing elit, et do eiusmod tempor acididunt
     </div>
   </div>
-  <div class="col-12 d-flex mt-1">
-    <app-key-point class="col" [keypoint]="point" *ngFor="let point of keypoints"></app-key-point>  
+  <div class="col-12 mt-1 key-points-holder">
+    <div *ngFor="let i of [0, 2]" class="d-flex w-50">
+      <app-key-point style="display: block;" class="col-12 col-sm-6 p-0" [keypoint]="keypoints[i+j]" *ngFor="let j of [0, 1]"></app-key-point>
+    </div>
   </div>
 </div>

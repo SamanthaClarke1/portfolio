@@ -1,5 +1,12 @@
 @import "~/src/_variables.scss";
 
+.key-points-holder {
+  display: flex;
+  @media (max-width: 575px) {
+    display: block;
+  }
+}
+
 .about-me {
   .header {
     margin-bottom: 1em;
