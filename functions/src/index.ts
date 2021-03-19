@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
 import { google } from 'googleapis';
 import { AuthenticationTypeOAuth2 } from 'nodemailer/lib/smtp-connection';
+
 // import SMTPTransport = require('nodemailer/lib/smtp-transport');
 
 admin.initializeApp();
@@ -23,11 +24,11 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 exports.sendemail = functions.https.onCall(async (data, context) => {
   const OAuth2 = google.auth.OAuth2;
   const APP_NAME = 'Portfolio';
-  const clientID =
-    '931980061072-iohoqqgjsfq5iomt6tsn7tcr72s6fiue.apps.googleusercontent.com';
-  const clientSecret = 'qvwEVEOUuTyll-30B6Q7cuIO';
-  const refreshToken =
-    '1//04u_OT5fdoSklCgYIARAAGAQSNwF-L9IrFXrlYwkSKXcy_FqeGSOZLXHqIO_2IaJDmelQCXugFK3idQIBFX466z1KCcHK0D7LbIw';
+
+  // dont worry, i changed up all the data since the last commit / blunder.
+  const clientID = functions.config().gmail.clientid;
+  const clientSecret = functions.config().gmail.clientsecret;
+  const refreshToken = functions.config().gmail.refreshtoken;
 
   // Checking attribute.`
   if (!(typeof data.text === 'string') || data.text.length === 0) {
@@ -60,7 +61,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
 
   const transportAuth: AuthenticationTypeOAuth2 = {
     type: 'OAuth2',
-    user: 'samanthaclarke.work@gmail.com',
+    user: functions.config().gmail.user,
     clientId: clientID,
     clientSecret: clientSecret,
     refreshToken: refreshToken,
@@ -73,7 +74,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
 
   const smtpTransport = nodemailer.createTransport(transportOptions);
   const mailOptions = {
-    from: `${APP_NAME} <samanthaclarke@gmail.com>`,
+    from: `${APP_NAME} ${functions.config().gmail.user}`,
     to: data.text, // sending to email IDs in app request, please check README.md
     subject: `Hello from ${APP_NAME}!`,
     text: `Hi,\n Test email from ${APP_NAME}.`,
