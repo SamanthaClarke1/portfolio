@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { StatbarComponent } from './statbar/statbar.component';
 
 import { AngularFireModule } from '@angular/fire'
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireStorageModule } from '@angular/fire/storage'
 import { AngularFireAuthModule } from '@angular/fire/auth'
@@ -36,12 +38,14 @@ import { environment } from '../environments/environment'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    AngularFireFunctionsModule
   ],
   providers: [],
   bootstrap: [ AppComponent ]

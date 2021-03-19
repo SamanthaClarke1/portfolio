@@ -12,6 +12,11 @@ export const environment = {
     messagingSenderId: "100508599802",
     appId: "1:100508599802:web:76989f9c1c2efdfa6c9043",
     measurementId: "G-RY3MTTXEY9"
+  },
+  functionurls: {
+    helloworld: 'http://localhost:5000/samanthaclarke-portfolio/us-central1/helloWorld',
+    sendemail: 'http://localhost:5000/samanthaclarke-portfolio/us-central1/sendemail',
+    sendemailprod: 'https://us-central1-samanthaclarke-portfolio.cloudfunctions.net/sendemail'
   }
 };
 

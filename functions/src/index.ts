@@ -1,4 +1,5 @@
 import * as functions from 'firebase-functions';
+import { warn } from 'firebase-functions/lib/logger';
 import * as admin from 'firebase-admin';
 
 import * as nodemailer from 'nodemailer';
@@ -22,6 +23,8 @@ exports.helloWorld = functions.https.onRequest((req, res) => {
 });
 
 exports.sendemail = functions.https.onCall(async (data, context) => {
+  warn('RECEIVED REQUEST. DATA:', data.text);
+
   const OAuth2 = google.auth.OAuth2;
   const APP_NAME = 'Portfolio';
 
@@ -84,6 +87,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
     if (_error) {
       console.log(_error.message);
       smtpTransport.close();
+      return 'mail failed to send';
     }
     return 'mail sent';
   });
