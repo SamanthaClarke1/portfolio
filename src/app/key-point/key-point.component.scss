@@ -1,7 +1,7 @@
 @import "~/src/_variables.scss";
 
 .keypoint {
-  @media (max-width: 575px) {
+  @media (max-width: $xs-sm-breakpoint - 1px) {
     padding: 0.4em;
   }
 
@@ -9,7 +9,7 @@
   padding: .8em;
 
   .icon-holder {
-    @media (max-width: 575px) {
+    @media (max-width: $xs-sm-breakpoint - 1px) {
       width: 48px;
       height: 48px;
       font-size: 32px;

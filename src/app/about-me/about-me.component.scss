@@ -2,7 +2,7 @@
 
 .key-points-holder {
   display: flex;
-  @media (max-width: 575px) {
+  @media (max-width: $xs-sm-breakpoint - 1px) {
     display: block;
   }
 }
@@ -24,5 +24,23 @@
   }
   .blurb {
     margin: 2em;
+  }
+}
+
+.statbars-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+
+  app-statbar {
+    width: 100%;
+  }
+
+  @media (min-width: $md-lg-breakpoint) {
+    app-statbar {
+      margin-top: .25em;
+    }
   }
 }
