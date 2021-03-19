@@ -16,7 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { StatbarComponent } from './statbar/statbar.component';
 
 import { AngularFireModule } from '@angular/fire'
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireFunctionsModule, USE_EMULATOR } from '@angular/fire/functions';
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { AngularFireStorageModule } from '@angular/fire/storage'
 import { AngularFireAuthModule } from '@angular/fire/auth'
@@ -47,7 +47,9 @@ import { environment } from '../environments/environment'
     AngularFireStorageModule,
     AngularFireFunctionsModule
   ],
-  providers: [],
+  providers: [
+    { provide: USE_EMULATOR, useValue: ['localhost', 5000] }
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

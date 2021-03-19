@@ -21,7 +21,7 @@ export class ContactMeComponent implements OnInit {
   }
 
   sendForm() { 
-    this.sendemail({ text: 'Test 123' }).subscribe(data => {
+    this.sendemail({ text: 'Test 123 - YAYOI' }).subscribe(data => {
       this.data = data;
     });
   }

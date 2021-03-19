@@ -4,6 +4,7 @@
     "lint": "eslint --ext .js,.ts .",
     "lintandfix": "eslint --ext .js,.ts . --fix",
     "build": "tsc",
+    "buildandtest": "tsc && firebase serve --only functions",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
