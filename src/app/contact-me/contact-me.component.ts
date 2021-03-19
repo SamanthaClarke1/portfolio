@@ -10,31 +10,19 @@ import { environment } from '../../environments/environment';
 })
 export class ContactMeComponent implements OnInit {
   errorMessage?: string;
+  data?: string;
+  sendemail?: any;
   
-  constructor() { 
+  constructor(private fns: AngularFireFunctions) {
+    this.sendemail = fns.httpsCallable('sendemail');
   }
 
   ngOnInit(): void {
   }
 
-  sendForm() { // todo: try to rewrite with firebase only
-    const params = new HttpParams({fromObject: 
-      {'data': JSON.stringify({'text': 'Yayoi'})}
-    });
-    // see https://firebase.google.com/docs/functions/callable-reference
-    let httpHeaders = new HttpHeaders({
-      'Content-Type' : 'application/json'
-    });    
-    this.http.post(environment.functionurls.sendemail, params, 
-      {headers: httpHeaders}
-    ).subscribe({
-      next: data => {
-        console.log("DATA: ", data);
-      },
-      error: error => {
-        this.errorMessage = error.message;
-        console.log("ERR: ", error);
-      }
+  sendForm() { 
+    this.sendemail({ text: 'Test 123' }).subscribe(data => {
+      this.data = data;
     });
   }
 }

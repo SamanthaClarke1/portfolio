@@ -40,7 +40,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         'invalid-argument',
         'The function must be called with one arguments containing the message text to add.'
     );
-  }
+  }/*
   // Checking that the user is authenticated.
   if (!context.auth) {
     // Throwing an HttpsError so that the client gets the error details.
@@ -49,6 +49,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         'The function must be called while authenticated.'
     );
   }
+  */
   const oauth2Client = new OAuth2(
       clientID, // client Id
       clientSecret, // Client Secret
