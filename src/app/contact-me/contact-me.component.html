@@ -5,19 +5,18 @@
     <div class="row px-2">
       <div class="col-12 my-2">
         <input class="email-from w-100" 
-          [(value)]="emailname" 
+          [(ngModel)]="emailname" 
           placeholder="Name" />
       </div>
       <div class="col-12 my-2">
         <input class="email-from w-100" 
-          [(value)]="emailfrom" 
+          [(ngModel)]="emailfrom"
           placeholder="Email" />
       </div>
     </div>
     <div class="col-12 p-2">
       <textarea class="email-message w-100 rounded-lg" 
-        [(value)]="emailtext"
-        rows=4 
+        [(ngModel)]="emailtext" rows=4 
         placeholder="Message">
       </textarea>
     </div>

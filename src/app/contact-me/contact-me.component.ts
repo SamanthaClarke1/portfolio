@@ -3,6 +3,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../environments/environment';
 
+
 @Component({
   selector: 'app-contact-me',
   templateUrl: './contact-me.component.html',
@@ -25,6 +26,7 @@ export class ContactMeComponent implements OnInit {
   }
 
   sendForm() {
+    console.log(this.emailname, this.emailfrom, this.emailtext);
     this.sendemail({ 
       name: this.emailname,
       email: this.emailfrom,

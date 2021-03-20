@@ -63,9 +63,10 @@ exports.sendemail = functions.https.onCall(async (data, _context) => {
   // const tokens = await oauth2Client.refreshAccessToken()
   // praise be to the god: https://stackoverflow.com/questions/13871982/unable-to-refresh-access-token-response-is-unauthorized-client
   try {
-    const tokens = await oauth2Client.refreshAccessToken();
+    const tokens = await oauth2Client.refreshAccessToken()
     const accessToken = tokens.credentials.access_token;
-    if (accessToken == null) {
+    
+    if (accessToken === null) {
       throw new functions.https.HttpsError("unknown", 
       "Hate to say, but no access token came back. This should never happen.");
     }
@@ -83,8 +84,8 @@ exports.sendemail = functions.https.onCall(async (data, _context) => {
       service: 'gmail',
       auth: transportAuth,
     };
-
     const smtpTransport = nodemailer.createTransport(transportOptions);
+
     const mailOptions = {
       from: `${APP_NAME} ${functions.config().gmail.user}`,
       to: `clarkepearl44@gmail.com`, // sending to email IDs in app request, please check README.md
