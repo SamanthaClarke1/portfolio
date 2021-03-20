@@ -1,7 +1,7 @@
+import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../environments/environment';
-
 
 @Component({
   selector: 'app-contact-me',
@@ -12,6 +12,7 @@ export class ContactMeComponent implements OnInit {
   errorMessage?: string;
   data?: string;
   sendemail?: any;
+  recaptchakey: string = environment.recaptchakey;
   
   constructor(private fns: AngularFireFunctions) {
     this.sendemail = fns.httpsCallable('sendemail');
@@ -24,5 +25,9 @@ export class ContactMeComponent implements OnInit {
     this.sendemail({ text: 'Test 123 - YAYOI' }).subscribe(data => {
       this.data = data;
     });
+  }
+
+  recaptchaResolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
 }

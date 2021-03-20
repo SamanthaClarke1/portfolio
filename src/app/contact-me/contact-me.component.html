@@ -7,5 +7,9 @@
   <div class="error red-text">
     {{errorMessage}}
   </div>
-  <recaptcha (resolved)="resolved($event)" [siteKey]=""></recaptcha>
+  <re-captcha 
+    (resolved)="recaptchaResolved($event)" 
+    [siteKey]="recaptchakey"
+    required>
+  </re-captcha>
 </div>
