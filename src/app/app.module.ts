@@ -14,6 +14,7 @@ import { KeyPointComponent } from './key-point/key-point.component';
 import { ContactMeComponent } from './contact-me/contact-me.component';
 import { FooterComponent } from './footer/footer.component';
 import { StatbarComponent } from './statbar/statbar.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireFunctionsModule, USE_EMULATOR } from '@angular/fire/functions';
@@ -34,7 +35,7 @@ import { environment } from '../environments/environment'
     KeyPointComponent,
     ContactMeComponent,
     FooterComponent,
-    StatbarComponent
+    StatbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +46,8 @@ import { environment } from '../environments/environment'
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AngularFireFunctionsModule
+    AngularFireFunctionsModule,
+    RecaptchaModule,
   ],
   providers: [
     { provide: USE_EMULATOR, useValue: ['localhost', 5000] }

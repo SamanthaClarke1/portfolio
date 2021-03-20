@@ -1,10 +1,11 @@
 <div class="contact-me content-section">
   <h1 class="header"> Let's Get in Touch</h1>
-  <button (click)="sendForm()" class="btn btn-success"> debug </button>
+  <button (click)="sendForm()" class="btn btn-success"> Send </button>
   <div class="debug black green-text">
     {{data}}
   </div>
   <div class="error red-text">
     {{errorMessage}}
   </div>
+  <recaptcha (resolved)="resolved($event)" [siteKey]=""></recaptcha>
 </div>

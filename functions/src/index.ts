@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { warn, log } from 'firebase-functions/lib/logger';
+import { log } from 'firebase-functions/lib/logger';
 import * as admin from 'firebase-admin';
 
 import * as nodemailer from 'nodemailer';
@@ -62,12 +62,12 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
   // const tokens = await oauth2Client.refreshAccessToken()
   // praise be to the god: https://stackoverflow.com/questions/13871982/unable-to-refresh-access-token-response-is-unauthorized-client
   oauth2Client.refreshAccessToken( (error, tokens) => {
-    if(error) throw error;
-    else if(tokens) {
-      log('Seeeeeemss like success????', tokens)
+    if (error) throw error;
+    else if (tokens) {
+      log('Success! Shooting off the email now.');
       let accessToken = tokens.access_token;
       if (accessToken == null) accessToken = undefined;
-    
+
       const transportAuth: AuthenticationTypeOAuth2 = {
         type: 'OAuth2',
         user: functions.config().gmail.user,
@@ -80,7 +80,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         service: 'gmail',
         auth: transportAuth,
       };
-    
+
       const smtpTransport = nodemailer.createTransport(transportOptions);
       const mailOptions = {
         from: `${APP_NAME} ${functions.config().gmail.user}`,
@@ -88,7 +88,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         subject: `Email from ${APP_NAME}!`,
         text: `${APP_NAME}\nSTART\n\n --\n ${data.text} \n--\n\n END.`,
       };
-    
+
       smtpTransport.sendMail(
         mailOptions,
         (_error: Error | null, _info: any | null) => {
@@ -101,6 +101,6 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         }
       );
     }
-    return 'no tokens. probably a fuckup.'
-  })
+    return 'no tokens. probably a fuckup.';
+  });
 });
