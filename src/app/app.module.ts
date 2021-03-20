@@ -50,7 +50,7 @@ import { environment } from '../environments/environment'
     RecaptchaModule,
   ],
   providers: [
-    { provide: USE_EMULATOR, useValue: ['localhost', 5000] }
+    /*{ provide: USE_EMULATOR, useValue: ['localhost', 5000] }*/
   ],
   bootstrap: [ AppComponent ]
 })
