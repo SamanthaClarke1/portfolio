@@ -18,11 +18,11 @@ admin.initializeApp();
 //   response.send("Hello from Firebase!");
 // });
 
-exports.helloWorld = functions.https.onRequest((req, res) => {
+exports.helloWorld = functions.https.onRequest((_req, res) => {
   res.send('Hello from Firebase!');
 });
 
-exports.sendemail = functions.https.onCall(async (data, context) => {
+exports.sendemail = functions.https.onCall(async (data, _context) => {
   log('RECEIVED REQUEST. DATA:', data.text);
 
   const OAuth2 = google.auth.OAuth2;
@@ -38,9 +38,10 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
     // Throwing an HttpsError so that the client gets the error details.
     throw new functions.https.HttpsError(
       'invalid-argument',
-      'The function must be called with one arguments containing the message text to add.'
+      'The function must be called with message text as "text", and email as "email". Couldnt find text.'
     );
-  } /*
+  }
+   /*
   // Checking that the user is authenticated.
   if (!context.auth) {
     // Throwing an HttpsError so that the client gets the error details.
@@ -63,10 +64,10 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
   // praise be to the god: https://stackoverflow.com/questions/13871982/unable-to-refresh-access-token-response-is-unauthorized-client
   try {
     const tokens = await oauth2Client.refreshAccessToken();
-    let accessToken = tokens.credentials.access_token;
+    const accessToken = tokens.credentials.access_token;
     if (accessToken == null) {
       throw new functions.https.HttpsError("unknown", 
-      "Hate to say, but no access token came back. This should never happen.")
+      "Hate to say, but no access token came back. This should never happen.");
     }
     log('Success! Shooting off the email now.');
 
@@ -87,8 +88,17 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
     const mailOptions = {
       from: `${APP_NAME} ${functions.config().gmail.user}`,
       to: `clarkepearl44@gmail.com`, // sending to email IDs in app request, please check README.md
-      subject: `Email from ${APP_NAME}!`,
-      text: `${APP_NAME}\nSTART\n\n --\n ${data.text} \n--\n\n END.`,
+      subject: `Email from ${APP_NAME}! ${data.name} at ${data.email}`,
+      text: `
+        Name: ${data.name}
+        Email: ${data.email}
+        
+        START BODY
+        --
+          ${data.text}
+        --
+        END BODY
+      `,
     };
 
     smtpTransport.sendMail(
@@ -102,7 +112,7 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
         return 'mail sent';
       }
     );
-  } catch(err) {
+  } catch (err) {
     throw new functions.https.HttpsError(
       'permission-denied',
       'Refresh Token likely invalid. Couldn\'t retrieve Access Token.'

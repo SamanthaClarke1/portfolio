@@ -30,5 +30,6 @@ module.exports = {
     'indent': 'warn',
     'object-curly-spacing': ['warn', 'always'],
     'spaced-comment': ['warn', 'always'],
+    'no-trailing-spaces': 'warn',
   },
 };
