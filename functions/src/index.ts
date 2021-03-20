@@ -61,46 +61,51 @@ exports.sendemail = functions.https.onCall(async (data, context) => {
   // getting a "GaxiosError: unauthorized_client" here. **FIXED** (man that took forever)
   // const tokens = await oauth2Client.refreshAccessToken()
   // praise be to the god: https://stackoverflow.com/questions/13871982/unable-to-refresh-access-token-response-is-unauthorized-client
-  oauth2Client.refreshAccessToken( (error, tokens) => {
-    if (error) throw error;
-    else if (tokens) {
-      log('Success! Shooting off the email now.');
-      let accessToken = tokens.access_token;
-      if (accessToken == null) accessToken = undefined;
-
-      const transportAuth: AuthenticationTypeOAuth2 = {
-        type: 'OAuth2',
-        user: functions.config().gmail.user,
-        clientId: clientID,
-        clientSecret: clientSecret,
-        refreshToken: refreshToken,
-        accessToken: accessToken,
-      };
-      const transportOptions = {
-        service: 'gmail',
-        auth: transportAuth,
-      };
-
-      const smtpTransport = nodemailer.createTransport(transportOptions);
-      const mailOptions = {
-        from: `${APP_NAME} ${functions.config().gmail.user}`,
-        to: `clarkepearl44@gmail.com`, // sending to email IDs in app request, please check README.md
-        subject: `Email from ${APP_NAME}!`,
-        text: `${APP_NAME}\nSTART\n\n --\n ${data.text} \n--\n\n END.`,
-      };
-
-      smtpTransport.sendMail(
-        mailOptions,
-        (_error: Error | null, _info: any | null) => {
-          if (_error) {
-            console.log(_error.message);
-            smtpTransport.close();
-            return 'mail failed to send';
-          }
-          return 'mail sent';
-        }
-      );
+  try {
+    const tokens = await oauth2Client.refreshAccessToken();
+    let accessToken = tokens.credentials.access_token;
+    if (accessToken == null) {
+      throw new functions.https.HttpsError("unknown", 
+      "Hate to say, but no access token came back. This should never happen.")
     }
-    return 'no tokens. probably a fuckup.';
-  });
+    log('Success! Shooting off the email now.');
+
+    const transportAuth: AuthenticationTypeOAuth2 = {
+      type: 'OAuth2',
+      user: functions.config().gmail.user,
+      clientId: clientID,
+      clientSecret: clientSecret,
+      refreshToken: refreshToken,
+      accessToken: accessToken,
+    };
+    const transportOptions = {
+      service: 'gmail',
+      auth: transportAuth,
+    };
+
+    const smtpTransport = nodemailer.createTransport(transportOptions);
+    const mailOptions = {
+      from: `${APP_NAME} ${functions.config().gmail.user}`,
+      to: `clarkepearl44@gmail.com`, // sending to email IDs in app request, please check README.md
+      subject: `Email from ${APP_NAME}!`,
+      text: `${APP_NAME}\nSTART\n\n --\n ${data.text} \n--\n\n END.`,
+    };
+
+    smtpTransport.sendMail(
+      mailOptions,
+      (_error: Error | null, _info: any | null) => {
+        if (_error) {
+          console.log(_error.message);
+          smtpTransport.close();
+          return 'mail failed to send';
+        }
+        return 'mail sent';
+      }
+    );
+  } catch(err) {
+    throw new functions.https.HttpsError(
+      'permission-denied',
+      'Refresh Token likely invalid. Couldn\'t retrieve Access Token.'
+    );
+  }
 });
