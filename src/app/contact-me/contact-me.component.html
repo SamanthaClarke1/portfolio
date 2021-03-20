@@ -21,10 +21,11 @@
       </textarea>
     </div>
     <div class="col-12 p-2 text-right">
-      <button (click)="sendForm()" class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> Send </button>
+      <button (click)="captchaRef.execute()" class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> Send </button>
     </div>
 
     <re-captcha 
+      #captchaRef="reCaptcha" 
       (resolved)="recaptchaResolved($event)" 
       [siteKey]="recaptchakey"
       size="invisible">

@@ -1,5 +1,4 @@
-import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { environment } from '../../environments/environment';
 
@@ -26,17 +25,20 @@ export class ContactMeComponent implements OnInit {
   }
 
   sendForm() {
-    console.log(this.emailname, this.emailfrom, this.emailtext);
+    console.log('name', this.emailname, 'from', this.emailfrom, 'text', this.emailtext);
     this.sendemail({ 
       name: this.emailname,
       email: this.emailfrom,
       text: this.emailtext,
     }).subscribe(data => {
-      console.log(data);
+      console.log('contact-me > sendform > subscribe returned, data:', data);
     });
   }
 
   recaptchaResolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
+    if(captchaResponse) {
+      console.log(`Resolved captcha with response: ${captchaResponse}. Submitting form.`);
+      this.sendForm();
+    }
   }
 }

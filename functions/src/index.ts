@@ -41,7 +41,7 @@ exports.sendemail = functions.https.onCall(async (data, _context) => {
       'The function must be called with message text as "text", and email as "email". Couldnt find text.'
     );
   }
-   /*
+  /*
   // Checking that the user is authenticated.
   if (!context.auth) {
     // Throwing an HttpsError so that the client gets the error details.
@@ -63,12 +63,12 @@ exports.sendemail = functions.https.onCall(async (data, _context) => {
   // const tokens = await oauth2Client.refreshAccessToken()
   // praise be to the god: https://stackoverflow.com/questions/13871982/unable-to-refresh-access-token-response-is-unauthorized-client
   try {
-    const tokens = await oauth2Client.refreshAccessToken()
+    const tokens = await oauth2Client.refreshAccessToken();
     const accessToken = tokens.credentials.access_token;
-    
+
     if (accessToken === null) {
-      throw new functions.https.HttpsError("unknown", 
-      "Hate to say, but no access token came back. This should never happen.");
+      throw new functions.https.HttpsError('unknown',
+      'Hate to say, but no access token came back. This should never happen.');
     }
     log('Success! Shooting off the email now.');
 
@@ -88,7 +88,7 @@ exports.sendemail = functions.https.onCall(async (data, _context) => {
 
     const mailOptions = {
       from: `${APP_NAME} ${functions.config().gmail.user}`,
-      to: `clarkepearl44@gmail.com`, // sending to email IDs in app request, please check README.md
+      to: `clarkepearl44@gmail.com`,
       subject: `Email from ${APP_NAME}! ${data.name} at ${data.email}`,
       text: `
         Name: ${data.name}
