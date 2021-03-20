@@ -10,20 +10,27 @@ import { environment } from '../../environments/environment';
 })
 export class ContactMeComponent implements OnInit {
   errorMessage?: string;
-  data?: string;
   sendemail?: any;
   recaptchakey: string = environment.recaptchakey;
+
+  emailtext: string = "";
+  emailfrom: string = "";
+  emailname: string = "";
   
   constructor(private fns: AngularFireFunctions) {
-    this.sendemail = fns.httpsCallable('sendemail');
+    this.sendemail = this.fns.httpsCallable('sendemail');
   }
 
   ngOnInit(): void {
   }
 
-  sendForm() { 
-    this.sendemail({ text: 'Test 123 - YAYOI' }).subscribe(data => {
-      this.data = data;
+  sendForm() {
+    this.sendemail({ 
+      name: this.emailname,
+      email: this.emailfrom,
+      text: this.emailtext,
+    }).subscribe(data => {
+      console.log(data);
     });
   }
 

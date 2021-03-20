@@ -1,15 +1,41 @@
 <div class="contact-me content-section">
   <h1 class="header"> Let's Get in Touch</h1>
-  <button (click)="sendForm()" class="btn btn-success"> Send </button>
+
+  <div class="form container">
+    <div class="row px-2">
+      <div class="col-12 my-2">
+        <input class="email-from w-100" 
+          [(value)]="emailname" 
+          placeholder="Name" />
+      </div>
+      <div class="col-12 my-2">
+        <input class="email-from w-100" 
+          [(value)]="emailfrom" 
+          placeholder="Email" />
+      </div>
+    </div>
+    <div class="col-12 p-2">
+      <textarea class="email-message w-100 rounded-lg" 
+        [(value)]="emailtext"
+        rows=4 
+        placeholder="Message">
+      </textarea>
+    </div>
+    <div class="col-12 p-2 text-right">
+      <button (click)="sendForm()" class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> Send </button>
+    </div>
+
+    <re-captcha 
+      (resolved)="recaptchaResolved($event)" 
+      [siteKey]="recaptchakey"
+      size="invisible">
+    </re-captcha>
+  </div>
+
   <div class="debug black green-text">
     {{data}}
   </div>
   <div class="error red-text">
     {{errorMessage}}
   </div>
-  <re-captcha 
-    (resolved)="recaptchaResolved($event)" 
-    [siteKey]="recaptchakey"
-    required>
-  </re-captcha>
 </div>
