@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from'@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MDBBootstrapModule, InputsModule, ButtonsModule } from 'angular-bootstrap-md';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -27,7 +27,6 @@ import { environment } from '../environments/environment'
 import { CommonModule } from '@angular/common';
 
 let debug_provide = { provide: USE_EMULATOR, useValue: ['localhost', 5000] };
-if(environment.production) debug_provide = undefined;
 
 @NgModule({
   declarations: [
@@ -56,9 +55,11 @@ if(environment.production) debug_provide = undefined;
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    InputsModule,
+    ButtonsModule,
   ],
   providers: [
-    debug_provide
+    // debug_provide
   ],
   bootstrap: [ AppComponent ]
 })

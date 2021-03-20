@@ -17,6 +17,8 @@ export class ContactMeComponent implements OnInit {
   emailfrom: string = "";
   emailname: string = "";
   
+  confirmationVisible = false;
+
   constructor(private fns: AngularFireFunctions) {
     this.sendemail = this.fns.httpsCallable('sendemail');
   }
@@ -31,7 +33,12 @@ export class ContactMeComponent implements OnInit {
       email: this.emailfrom,
       text: this.emailtext,
     }).subscribe(data => {
+      this.confirmationVisible = true;
       console.log('contact-me > sendform > subscribe returned, data:', data);
+      console.log('confirm visible? ', this.confirmationVisible);
+      setTimeout(() => {
+        this.confirmationVisible = false;
+      }, 2500);
     });
   }
 

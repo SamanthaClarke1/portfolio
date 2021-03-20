@@ -1,34 +1,42 @@
 <div class="contact-me content-section">
   <h1 class="header"> Let's Get in Touch</h1>
 
-  <div class="form container">
+  <div class="container-sm emailform md-form">
     <div class="row px-2">
       <div class="col-12 my-2">
-        <input class="email-from w-100" 
-          [(ngModel)]="emailname" 
-          placeholder="Name" />
+        <input mdbInput type="text" class="form-control" id="emailname"
+          [(ngModel)]="emailname" />
+        <!-- note: pl-3 is basically a monkey wrench here. -->
+        <label for="emailname" class="pl-3">Name</label>
       </div>
       <div class="col-12 my-2">
-        <input class="email-from w-100" 
-          [(ngModel)]="emailfrom"
-          placeholder="Email" />
+        <input mdbInput type="email" class="form-control" id="emailfrom"
+          [(ngModel)]="emailfrom" />
+        <label for="emailfrom" class="pl-3">Email</label>
       </div>
     </div>
-    <div class="col-12 p-2">
-      <textarea class="email-message w-100 rounded-lg" 
-        [(ngModel)]="emailtext" rows=4 
-        placeholder="Message">
+    <div class="col-12 p-2 my-2">
+      <textarea mdbInput type="text" id="emailtext"
+        class="md-textarea md-textarea-auto form-control"
+        [(ngModel)]="emailtext" rows=2>
       </textarea>
+      <label for="emailtext" class="pl-3">Your Message</label>
     </div>
     <div class="col-12 p-2 text-right">
       <button (click)="captchaRef.execute()" class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> Send </button>
+    </div>
+
+    <!-- todo: do something like mdb snackbars (are they a thing?) instead of this -->
+    <div class="col-12 bg-success white-text confirmation" [ngClass]="{'show': confirmationVisible}">
+      Email successfully sent.
     </div>
 
     <re-captcha 
       #captchaRef="reCaptcha" 
       (resolved)="recaptchaResolved($event)" 
       [siteKey]="recaptchakey"
-      size="invisible">
+      size="invisible"
+      style="display: none; opacity: 0;">
     </re-captcha>
   </div>
 

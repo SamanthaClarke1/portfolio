@@ -1,0 +1,15 @@
+@import "~/src/_variables.scss";
+
+.emailform {
+  @media (min-width: $md-lg-breakpoint) {
+    max-width: 900px;
+  }
+}
+
+.confirmation {
+  opacity: 0;
+  transition: all 0.3s ease-out;
+}
+.confirmation.show {
+  opacity: 1;
+}
