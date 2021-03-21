@@ -6,16 +6,16 @@ let opts = {
   _time: Math.floor(Math.random() * 9999), //
   _ps: 5, // _ps = _particlesize
   _pa: 100, // _pa = _particlealpha
-  _speed: 1.25,
+  _speed: 1.15,
   _vellines: false, // adds lines indicating velocity
-  _genamt: 120, // how many particles there are
-  _timecontinuity: true, // whether the noise progresses in 2 dimensions or 3 (time)
+  _genamt: 80, // how many particles there are
+  _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
   _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
   _accmang: true, // whether particles angles accumulate based on noise or are decided by it
   _curlnoise: true, // whether particles use curl noise instead of simplex.
   _step: 85, // frequency of the noise function.
   _radiusOut: 90,
-  _timeprog: 0.35, // if there is time continuity, how fast does the flowfield change?
+  _timeprog: 0.4, // if there is time continuity, how fast does the flowfield change?
 }
 
 @Component({
@@ -33,6 +33,7 @@ export class FlowfieldsComponent implements OnInit {
   // just changing the opacity interval, instead.
   OPACITY_INTERVAL = 6;
   BASE_COLOR = [51,51,51];
+  HAS_BACKGROUND = false;
   cnv;
 
   constructor() { }
@@ -42,7 +43,14 @@ export class FlowfieldsComponent implements OnInit {
       s.setup = () => {
         this.cnv = s.createCanvas(innerWidth, innerHeight);
         this.cnv.parent(document.getElementById("flowfields-world"));
-        s.background(this.BASE_COLOR[0], this.BASE_COLOR[1], this.BASE_COLOR[2]);
+
+        if(this.HAS_BACKGROUND) {
+          s.background(
+            this.BASE_COLOR[0], 
+            this.BASE_COLOR[1], 
+            this.BASE_COLOR[2]
+          );
+        }
         
         for(let i = 0; i < opts._genamt; i++) {
           this.particles.push(new Particle(s, this.n_, opts));
@@ -53,7 +61,14 @@ export class FlowfieldsComponent implements OnInit {
       s.draw = () => {
         if(this.fMult >= this.OPACITY_INTERVAL) {
           this.fMult = 0;
-          s.background(this.BASE_COLOR[0], this.BASE_COLOR[1], this.BASE_COLOR[2], this.ALPHA);
+          if(this.HAS_BACKGROUND) {
+            s.background(
+              this.BASE_COLOR[0], 
+              this.BASE_COLOR[1], 
+              this.BASE_COLOR[2], 
+              this.ALPHA
+            );
+          }
         }
         this.fMult += 1;
         
@@ -103,11 +118,15 @@ function Particle(s, n_, opts) {
   }
 
   this.goToRandomPosition = function() {
-    let centerPoint = [s.width/2, s.height/2];
+    // profile is slightly closer to the top
+    let centerPoint = [s.width/2, s.height/2 - 50]; 
     let radiOut = opts._radiusOut - s.random(0, opts._radiusOut/3);
     let rang = s.random(0, s.TWO_PI);
+
     this.x = centerPoint[0] + Math.sin(rang) * radiOut;
     this.y = centerPoint[1] - Math.cos(rang) * radiOut;
+    this.color = getRandomColor(s);
+    this.ang = s.random(0, s.TWO_PI);
   }
   
   this.draw = function() {
@@ -122,8 +141,6 @@ function Particle(s, n_, opts) {
   }
 
   this.goToRandomPosition();
-  this.ang = s.random(0, s.TWO_PI);
-  this.color = getRandomColor(s);
 }
 
 function rollInd(i){
@@ -132,7 +149,7 @@ function rollInd(i){
   return i;
 }
 function getRandomColor(s) {
-  let rcol = [s.random(126, 255), s.random(126, 255), s.random(126, 255)];
+  let rcol = [s.random(225, 75), s.random(225, 75), s.random(225, 75)];
   
   let target = 0; // simple saturation/contrast increaser. side effect means that r/g/b colors are more incentivised.
   if(s.random(0, 3) > 2) target = 2;

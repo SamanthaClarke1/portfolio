@@ -1,6 +1,6 @@
 @import "~/src/_variables.scss";
 
-div.parallax {
+.parallax {
 	width: 100vw;
 	height: 70vh;
 	position: relative;
@@ -13,9 +13,8 @@ div.parallax {
   align-items: center;
   color: white;
 }
-div.parallax::after {
+.parallax.code-parallax::after {
 	content: "";
-  background-image: url('https://placekitten.com/g/900/700');
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: absolute;
@@ -26,24 +25,40 @@ div.parallax::after {
 	-webkit-transform: translateZ(-3px) scale(6.1);
   opacity: 0.7;
 }
-div.parallax.code-parallax::after {
+.parallax.code-parallax::after {
   background-image: url('../../assets/images/code3.png');
   opacity: 0.9;
   filter: blur(3px);
 }
 
 .header-content {
-  .text {
-    margin-top: 0.5em;
-    color: $whitetext;
-  }
-  .subtext {
-    color: $whitetext2;
-    font-weight: 400;
-  }
-  .profile-img {
-    width: 33%;
-    border-radius: 100%;
-    box-shadow: $z-shadow-1;
+  position: absolute;
+  left: 0; right: 0;
+  width: 100%;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  .header-container {
+    max-width: 900px;
+
+    .text {
+      margin-top: 0.5em;
+      font-weight: 600;
+      color: $whitetext;
+      text-shadow: 0px 3px 3px rgba(0,0,0,33);
+    }
+    .subtext {
+      color: $whitetext2;
+      font-weight: 500;
+      text-shadow: 0px 2px 2px rgba(0,0,0,33);
+    }
+    .profile-img {
+      width: 40%;
+      border-radius: 100%;
+      box-shadow: $z-shadow-1;
+    }
   }
 }
