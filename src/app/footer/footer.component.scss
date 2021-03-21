@@ -1,0 +1,46 @@
+@import "~/src/_variables.scss";
+
+.footer {
+  box-shadow: $z-shadow-1;
+  z-index: 1;
+  background: $altcolor2; /* design note: color should somewhat match header bg */
+
+  .credit {
+    color: $whitetext4;
+  }
+
+  .icons-holder {
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    a {
+      cursor: unset;
+      div.icon {
+        width: 55px;
+        height: 55px;
+        overflow: hidden;
+        margin: 0px 10px;
+
+        text-align: center;
+        color: $whitetext2;
+        cursor: pointer;
+        border-radius: 0.25em;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        transition: font-size 0.3s ease-out, color 0.3s ease-out, background-color 0.3s ease-out;
+      }
+      div.icon:hover {
+        background-color: $keycolor;
+        font-size: 32px;
+        color: $whitetext;
+      }
+    }
+  }
+}

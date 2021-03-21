@@ -1,10 +1,10 @@
 @import "~/src/_variables.scss";
 
 .content-section {
-  padding-top: 5em;
+  padding-top: 4em;
   padding-bottom: 3em;
   text-align: center;
-  min-height: 70vh;
+  min-height: 50vh;
 
   .header {
     color: $blacktext;
@@ -12,15 +12,19 @@
   }
   .blurb {
     color: $blacktext2;
-    font-size: 1.15em;
+    font-size: 1.1em;
   }
 }
 
-.header {
+.header, .content-section .header {
   color: $blacktext;
   font-weight: 600;
 }
-.blurb {
+.blurb, .content-section .blurb {
   color: $blacktext2;
   font-size: 1.15em;
+
+  @media(max-width: $xs-sm-breakpoint) {
+    font-size: 1.05em;
+  }
 }

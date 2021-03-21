@@ -4,20 +4,20 @@
   <div class="container-sm emailform md-form">
     <div class="row px-2">
       <div class="col-12 my-2">
-        <input mdbInput type="text" class="form-control" id="emailname"
-          [(ngModel)]="emailname" />
+        <input mdbInput type="text" class="form-control px-1" 
+          id="emailname" [(ngModel)]="emailname" />
         <!-- note: pl-3 is basically a monkey wrench here. -->
         <label for="emailname" class="pl-3">Name</label>
       </div>
       <div class="col-12 my-2">
-        <input mdbInput type="email" class="form-control" id="emailfrom"
-          [(ngModel)]="emailfrom" />
+        <input mdbInput type="email" class="form-control px-1" 
+          id="emailfrom" [(ngModel)]="emailfrom" />
         <label for="emailfrom" class="pl-3">Email</label>
       </div>
     </div>
-    <div class="col-12 p-2 my-2">
+    <div class="col-12 px-2 my-2">
       <textarea mdbInput type="text" id="emailtext"
-        class="md-textarea md-textarea-auto form-control"
+        class="md-textarea md-textarea-auto form-control px-1"
         [(ngModel)]="emailtext" rows=2>
       </textarea>
       <label for="emailtext" class="pl-3">Your Message</label>

@@ -19,8 +19,10 @@ export class AboutMeComponent implements OnInit {
     {icon: "fab fa-html5", color: "deep-orange", title: "HTML5", percent: 90},
     {icon: "fab fa-js-square", color: "amber", title: "JavaScript", percent: 90},
     {icon: "fab fa-css3-alt", color: "blue", title: "CSS3", percent: 80},
-    {icon: "fab fa-python", color: "indigo", title: "Python", percent: 65},
-    {icon: "fab fa-angular", color: "red", title: "Angular", percent: 60},
+    {icon: "fab fa-figma", color: "", title: "Figma", percent: 65},
+    {icon: "fab fa-python", color: "indigo", title: "Python", percent: 60},
+    {icon: "fab fa-angular", color: "red", title: "Angular", percent: 50},
+    {icon: "fab fa-google", color: "orange", title: "Firebase", percent: 40}
   ]
 
   constructor() { }
