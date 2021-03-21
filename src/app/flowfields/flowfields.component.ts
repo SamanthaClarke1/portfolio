@@ -1,22 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import * as p5 from 'p5';
-import * as SimplexNoise from './simplexnoise'
-
-let opts = {
-  _time: Math.floor(Math.random() * 9999), //
-  _ps: 4.5 + (innerWidth / 700), // _ps = _particlesize
-  _pa: 100, // _pa = _particlealpha
-  _speed: 0.6 + (innerWidth / 3000),
-  _vellines: false, // adds lines indicating velocity
-  _genamt: 80, // how many particles there are
-  _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
-  _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
-  _accmang: true, // whether particles angles accumulate based on noise or are decided by it
-  _curlnoise: true, // whether particles use curl noise instead of simplex.
-  _step: 85, // frequency of the noise function.
-  _radiusOut: 10 + (Math.min(innerWidth, 1000) / 6.66),
-  _timeprog: 0.4, // if there is time continuity, how fast does the flowfield change?
-}
+import * as SimplexNoise from './simplexnoise';
 
 @Component({
   selector: 'app-flowfields',
@@ -35,11 +19,67 @@ export class FlowfieldsComponent implements OnInit {
   BASE_COLOR = [51,51,51];
   HAS_BACKGROUND = false;
   cnv;
+  opts;
 
-  constructor() { }
+  constructor() {
+    this.opts = this.generateOpts();
+  }
+
+  generateOpts(twidth=innerWidth) {
+    return {
+      _time: Math.floor(Math.random() * 9999), //
+      _ps: 4.5 + (twidth / 700), // _ps = _particlesize
+      _pa: 100, // _pa = _particlealpha
+      _speed: 0.6 + (twidth / 3000),
+      _vellines: false, // adds lines indicating velocity
+      _genamt: 80, // how many particles there are
+      _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
+      _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
+      _accmang: true, // whether particles angles accumulate based on noise or are decided by it
+      _curlnoise: true, // whether particles use curl noise instead of simplex.
+      _step: 85, // frequency of the noise function.
+      _radiusOut: 10 + (Math.min(twidth, 1000) / 6.66),
+      _timeprog: 0.4, // if there is time continuity, how fast does the flowfield change?
+    }
+  }
+
+  rtime;
+  timeout = false;
+  delta = 100;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) { // queue up timeout
+    this.rtime = new Date().getTime();
+    if (this.timeout === false) {
+      this.timeout = true;
+      setTimeout(this.resizeEnd(this, event), this.delta);
+    }
+  }
+  resizeEnd(me, event) {
+    return function() {
+      // check if they're done resizing the window (for performance reasons)
+      if(new Date().getTime() - me.rtime < me.delta) {
+        setTimeout(me.resizeEnd(me, event), me.delta);
+      } else {
+        // if enough time has passed, run our code.
+        me.timeout = false;
+  
+        me.cnv.clear();
+        me.opts = me.generateOpts(window.innerWidth);
+        for(let i = 0; i < me.particles.length; i++) {
+          me.particles[i].opts = me.opts;
+          me.particles[i].goToRandomPosition();
+        }
+      }
+    }
+  }
 
   ngOnInit(): void {
     const sketch = (s) => {
+      s.windowResized = () => {
+        s.clear();
+        s.resizeCanvas(innerWidth, innerHeight);
+      }
       s.setup = () => {
         this.cnv = s.createCanvas(innerWidth, innerHeight);
         this.cnv.parent(document.getElementById("flowfields-world"));
@@ -52,8 +92,8 @@ export class FlowfieldsComponent implements OnInit {
           );
         }
         
-        for(let i = 0; i < opts._genamt; i++) {
-          this.particles.push(new Particle(s, this.n_, opts));
+        for(let i = 0; i < this.opts._genamt; i++) {
+          this.particles.push(new Particle(s, this.n_, this.opts));
         }
         
         s.noStroke();
@@ -77,7 +117,7 @@ export class FlowfieldsComponent implements OnInit {
           this.particles[i].draw(s);
         }
         
-        if(opts._timecontinuity) opts._time += opts._timeprog;
+        if(this.opts._timecontinuity) this.opts._time += this.opts._timeprog;
       }
     }
 
@@ -85,42 +125,44 @@ export class FlowfieldsComponent implements OnInit {
   }
 }
 function Particle(s, n_, opts) {
+  this.opts = opts;
+
   this.move = function() {
-    let etime = opts._time / (opts._step*10);
-    if(opts._curlnoise == false) {
+    let etime = this.opts._time / (this.opts._step*10);
+    if(this.opts._curlnoise == false) {
       this.nang = s.map(
-        n_.noise3D(this.x / opts._step, this.y / opts._step, etime), 0, 1, 0, s.TWO_PI
+        n_.noise3D(this.x / this.opts._step, this.y / this.opts._step, etime), 0, 1, 0, s.TWO_PI
       );
       this.ang = (this.ang * 15 + this.nang * 85) / 200;
     
-      this.x +=  Math.sin(this.ang) * opts._speed;
-      this.y += -Math.cos(this.ang) * opts._speed;
+      this.x +=  Math.sin(this.ang) * this.opts._speed;
+      this.y += -Math.cos(this.ang) * this.opts._speed;
     } else {
       let curl = computeCurl(n_,
-        this.x / (opts._step * 2), 
-        this.y / (opts._step * 2), 
+        this.x / (this.opts._step * 2), 
+        this.y / (this.opts._step * 2), 
         etime
       );
-      this.x += curl[0] * opts._speed / 4;
-      this.y += curl[1] * opts._speed / 4;
+      this.x += curl[0] * this.opts._speed / 4;
+      this.y += curl[1] * this.opts._speed / 4;
     }
       
-    if(opts._wrapping) {
+    if(this.opts._wrapping) {
       if(this.x > s.width || this.x < 0 || this.y > s.height || this.y < 0) {
         this.goToRandomPosition();
       }
     }
     
-    if(opts._vellines) {
-      this.nx = this.x +  Math.sin(this.ang) * opts._speed * 10;
-      this.ny = this.y + -Math.cos(this.ang) * opts._speed * 10;
+    if(this.opts._vellines) {
+      this.nx = this.x +  Math.sin(this.ang) * this.opts._speed * 10;
+      this.ny = this.y + -Math.cos(this.ang) * this.opts._speed * 10;
     }
   }
 
   this.goToRandomPosition = function() {
     // profile is slightly closer to the top
     let centerPoint = [s.width/2, s.height/2 - 50]; 
-    let radiOut = opts._radiusOut - s.random(0, opts._radiusOut/3);
+    let radiOut = this.opts._radiusOut - s.random(0, this.opts._radiusOut/3);
     let rang = s.random(0, s.TWO_PI);
 
     this.x = centerPoint[0] + Math.sin(rang) * radiOut;
@@ -130,19 +172,18 @@ function Particle(s, n_, opts) {
   }
   
   this.draw = function() {
-    s.fill(this.color[0], this.color[1], this.color[2], opts._pa);
+    s.fill(this.color[0], this.color[1], this.color[2], this.opts._pa);
     
-    if(opts._vellines) {
-      s.stroke(this.color[0], this.color[1], this.color[2], opts._pa);
+    if(this.opts._vellines) {
+      s.stroke(this.color[0], this.color[1], this.color[2], this.opts._pa);
       s.line(this.x, this.y, this.nx, this.ny);
     }
     
-    s.ellipse(this.x,  this.y, opts._ps, opts._ps);
+    s.ellipse(this.x,  this.y, this.opts._ps, this.opts._ps);
   }
 
   this.goToRandomPosition();
 }
-
 function rollInd(i){
   if(i < 0) return i + 3;
   if(i > 3) return i - 3;
