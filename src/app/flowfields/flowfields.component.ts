@@ -4,9 +4,9 @@ import * as SimplexNoise from './simplexnoise'
 
 let opts = {
   _time: Math.floor(Math.random() * 9999), //
-  _ps: 5, // _ps = _particlesize
+  _ps: 4.5 + (innerWidth / 700), // _ps = _particlesize
   _pa: 100, // _pa = _particlealpha
-  _speed: 1.15,
+  _speed: 0.6 + (innerWidth / 3000),
   _vellines: false, // adds lines indicating velocity
   _genamt: 80, // how many particles there are
   _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
@@ -14,7 +14,7 @@ let opts = {
   _accmang: true, // whether particles angles accumulate based on noise or are decided by it
   _curlnoise: true, // whether particles use curl noise instead of simplex.
   _step: 85, // frequency of the noise function.
-  _radiusOut: 90,
+  _radiusOut: 10 + (Math.min(innerWidth, 1000) / 6.66),
   _timeprog: 0.4, // if there is time continuity, how fast does the flowfield change?
 }
 
