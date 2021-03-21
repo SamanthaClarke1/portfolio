@@ -4,18 +4,18 @@ import * as SimplexNoise from './simplexnoise'
 
 let opts = {
   _time: Math.floor(Math.random() * 9999), //
-  _ps: 4.7, // _ps = _particlesize
+  _ps: 5, // _ps = _particlesize
   _pa: 100, // _pa = _particlealpha
-  _speed: 1.2,
+  _speed: 1.25,
   _vellines: false, // adds lines indicating velocity
-  _genamt: 150, // how many particles there are
+  _genamt: 120, // how many particles there are
   _timecontinuity: true, // whether the noise progresses in 2 dimensions or 3 (time)
   _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
   _accmang: true, // whether particles angles accumulate based on noise or are decided by it
   _curlnoise: true, // whether particles use curl noise instead of simplex.
-  _step: 92, // frequency of the noise function.
-  _radiusOut: 110,
-  _timeprog: 0.3, // if there is time continuity, how fast does the flowfield change?
+  _step: 85, // frequency of the noise function.
+  _radiusOut: 90,
+  _timeprog: 0.35, // if there is time continuity, how fast does the flowfield change?
 }
 
 @Component({
@@ -28,9 +28,11 @@ export class FlowfieldsComponent implements OnInit {
   n_ = new SimplexNoise();
   fMult = 0;
   ALPHA = 8; // note: due to what i think is a color rounding error,
-  // there can be "staining" if the alpha is too low.
-  OPACITY_INTERVAL = 7;
-  BASE_COLOR = [51,51,58];
+  // there can be "staining" of the bg if the alpha is too low. sometimes if its too high.
+  // its sensitive, and the numbers are magic. hence why i suggest mostly
+  // just changing the opacity interval, instead.
+  OPACITY_INTERVAL = 6;
+  BASE_COLOR = [51,51,51];
   cnv;
 
   constructor() { }
