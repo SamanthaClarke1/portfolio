@@ -40,11 +40,12 @@ $height: 2.2em;
 
   span.fillme {
     display: block;
-    width: 50%;
+    width: 0%;
     height: 100%;
     border-radius: $border-radius;
     background-color: $keycolor;
     position: relative;
     overflow: hidden;
+    transition: width 0.66s ease-out;
   }
 }

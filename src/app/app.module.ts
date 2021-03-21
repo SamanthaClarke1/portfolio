@@ -25,6 +25,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { environment } from '../environments/environment'
 import { CommonModule } from '@angular/common';
+import { FlowfieldsComponent } from './flowfields/flowfields.component';
 
 let debug_provide = { provide: USE_EMULATOR, useValue: ['localhost', 5000] };
 
@@ -40,6 +41,7 @@ let debug_provide = { provide: USE_EMULATOR, useValue: ['localhost', 5000] };
     ContactMeComponent,
     FooterComponent,
     StatbarComponent,
+    FlowfieldsComponent,
   ],
   imports: [
     BrowserModule,
