@@ -1,8 +1,6 @@
 @import "~/src/_variables.scss";
 
 .footer {
-  box-shadow: $z-shadow-1;
-  z-index: 1;
   background: $altcolor2; /* design note: color should somewhat match header bg */
 
   .credit {
