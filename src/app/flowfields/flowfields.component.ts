@@ -33,7 +33,7 @@ export class FlowfieldsComponent implements OnInit {
       _pa: 100, // _pa = _particlealpha
       _speed: 0.6 + (twidth / 3000),
       _vellines: false, // adds lines indicating velocity
-      _genamt: 30 + Math.floor(twidth / 30), // how many particles there are
+      _genamt: 35 + Math.floor(twidth / 50), // how many particles there are
       _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
       _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
       _accmang: true, // whether particles angles accumulate based on noise or are decided by it
@@ -101,8 +101,11 @@ export class FlowfieldsComponent implements OnInit {
         s.noStroke();
       }
       s.draw = () => {
-        while(this.particles.length < this.opts._genamt) {
+        while(this.particles.length < this.opts._genamt) { //if too little balls, add more
           this.particles.push(new Particle(s, this.n_, this.opts));
+        }
+        while(this.particles.length > this.opts._genamt) { //if too many balls, remove some
+          this.particles.pop();
         }
         if(this.justresized) {
           s.clear();

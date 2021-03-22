@@ -1,6 +1,7 @@
 <div class="project-holder">
   <div class="project col-12 col-sm-10 col-md-8">
     <h2 class="header">{{project.title}}</h2>
+    <h5 class="status">{{project.status}}</h5>
     <div class="images">
       <div class="img-prev col" 
         [ngClass]="{'active': (i == 1)}" 
@@ -8,6 +9,8 @@
         <img class="img" [src]="image" />
       </div>
     </div>
-    <div class="blurb">{{project.blurb}}</div>
+    <div class="blurb">
+      <p *ngFor="let blurbPart of project.blurb.split('\n\n')">{{blurbPart}}</p>
+    </div>
   </div>
 </div>
