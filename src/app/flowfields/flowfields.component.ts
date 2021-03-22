@@ -27,13 +27,13 @@ export class FlowfieldsComponent implements OnInit {
   }
 
   generateOpts(twidth=innerWidth) {
-    return {
+    let topts = {
       _time: Math.floor(Math.random() * 9999), //
       _ps: 4.5 + (twidth / 700), // _ps = _particlesize
       _pa: 100, // _pa = _particlealpha
       _speed: 0.6 + (twidth / 3000),
       _vellines: false, // adds lines indicating velocity
-      _genamt: 50 + (twidth / 30), // how many particles there are
+      _genamt: 30 + Math.floor(twidth / 30), // how many particles there are
       _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
       _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
       _accmang: true, // whether particles angles accumulate based on noise or are decided by it
@@ -42,6 +42,8 @@ export class FlowfieldsComponent implements OnInit {
       _radiusOut: 10 + (Math.min(twidth, 1000) / 6.66),
       _timeprog: 0.4, // if there is time continuity, how fast does the flowfield change?
     }
+    console.log("GENERATING",topts._genamt,"BALLS");
+    return topts;
   }
 
   rtime;
