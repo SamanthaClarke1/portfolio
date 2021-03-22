@@ -64,7 +64,6 @@ export class FlowfieldsComponent implements OnInit {
         // if enough time has passed, run our code.
         me.timeout = false;
   
-        me.cnv.clear();
         me.opts = me.generateOpts(window.innerWidth);
         for(let i = 0; i < me.particles.length; i++) {
           me.particles[i].opts = me.opts;
