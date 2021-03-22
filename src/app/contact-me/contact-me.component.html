@@ -23,12 +23,26 @@
       <label for="emailtext" class="pl-3">Your Message</label>
     </div>
     <div class="col-12 p-2 text-right">
-      <button (click)="captchaRef.execute()" class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> Send </button>
+      <i class="fa mr-2 " [ngClass]="{
+        'fa-sync': sending, 
+        'fa-spin': sending,
+        'fa-check': confirmationVisible,
+        'fa-frown': errorHappened
+      }"></i>
+      <button [disabled]="sending" (click)="sending = true; captchaRef.execute()" 
+        class="btn btn-success col-12 col-sm-6 col-md-4 col-lg-2"> 
+        Send 
+      </button>
     </div>
 
     <!-- todo: do something like mdb snackbars (are they a thing?) instead of this -->
-    <div class="col-12 bg-success white-text confirmation" [ngClass]="{'show': confirmationVisible}">
-      Email successfully sent.
+    <div class="col-12 white-text confirmation" 
+      [ngClass]="{
+        'show': (confirmationVisible || errorHappened), 
+        'bg-success': confirmationVisible, 
+        'bg-danger': errorHappened
+      }">
+      {{message}}
     </div>
 
     <re-captcha 
@@ -38,9 +52,5 @@
       size="invisible"
       style="display: none; opacity: 0;">
     </re-captcha>
-  </div>
-
-  <div class="error red-text">
-    {{errorMessage}}
   </div>
 </div>

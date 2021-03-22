@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { onErrorResumeNext } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 
@@ -9,7 +10,8 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./contact-me.component.scss', '../content/content-section.scss']
 })
 export class ContactMeComponent implements OnInit {
-  errorMessage?: string;
+  defaultmessage: string = "Email Successfully Sent";
+  message?: string = this.defaultmessage;
   sendemail?: any;
   recaptchakey: string = environment.recaptchakey;
 
@@ -17,6 +19,8 @@ export class ContactMeComponent implements OnInit {
   emailfrom: string = "";
   emailname: string = "";
   
+  sending = false;
+  errorHappened = false;
   confirmationVisible = false;
 
   constructor(private fns: AngularFireFunctions) {
@@ -28,24 +32,50 @@ export class ContactMeComponent implements OnInit {
 
   sendForm() {
     console.log('name', this.emailname, 'from', this.emailfrom, 'text', this.emailtext);
-    this.sendemail({ 
-      name: this.emailname,
-      email: this.emailfrom,
-      text: this.emailtext,
-    }).subscribe(data => {
-      this.confirmationVisible = true;
-      console.log('contact-me > sendform > subscribe returned, data:', data);
-      console.log('confirm visible? ', this.confirmationVisible);
-      setTimeout(() => {
-        this.confirmationVisible = false;
-      }, 2500);
-    });
+    try {
+      this.sendemail({ 
+        name: this.emailname,
+        email: this.emailfrom,
+        text: this.emailtext,
+      }).subscribe(
+        data => {
+          this.sending = false;
+          this.confirmationVisible = true;
+          console.log('contact-me > sendform > subscribe returned, data:', data);
+          console.log('confirm visible? ', this.confirmationVisible);
+
+          setTimeout(() => {
+            this.confirmationVisible = false;
+          }, 3000);
+        },
+        err => {this.onError(err)}
+      );
+    } catch(err: any) {
+      this.onError(err);
+    }
+  }
+  onError(error) {
+    this.sending = false;
+    this.errorHappened = true;
+    this.message = error.toString();
+
+    setTimeout(()=>{
+      this.errorHappened = false;
+      setTimeout(()=>{ // to deal with fadeout animation.
+        this.message = this.defaultmessage;
+      }, 300)
+    }, 3000)
   }
 
   recaptchaResolved(captchaResponse: string) {
-    if(captchaResponse) {
-      console.log(`Resolved captcha with response: ${captchaResponse}. Submitting form.`);
-      this.sendForm();
+    try {
+      if(captchaResponse) {
+        console.log(`Resolved captcha with response: ${captchaResponse}. Submitting form.`);
+        this.sendForm();
+      }
+      throw new Error("Captcha Failed");
+    } catch(err: any) {
+      this.onError(err)
     }
   }
 }

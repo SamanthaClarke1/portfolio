@@ -60,7 +60,7 @@ export class PastProjectsComponent implements OnInit {
     },
     {
       id: 3,
-      images: ["/assets/images/neutronic1.png", "/assets/images/neutronic2.png", "/assets/images/neutronicui.png"],
+      images: ["/assets/images/brimm2.png", "/assets/images/brimm3.png", "/assets/images/brimm1.png"],
       status: "Ended August 2020",
       title: "Brimm",
       blurb: 
