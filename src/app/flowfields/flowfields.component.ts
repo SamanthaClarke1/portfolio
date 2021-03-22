@@ -18,6 +18,7 @@ export class FlowfieldsComponent implements OnInit {
   OPACITY_INTERVAL = 6;
   BASE_COLOR = [51,51,51];
   HAS_BACKGROUND = false;
+  justresized = false;
   cnv;
   opts;
 
@@ -32,7 +33,7 @@ export class FlowfieldsComponent implements OnInit {
       _pa: 100, // _pa = _particlealpha
       _speed: 0.6 + (twidth / 3000),
       _vellines: false, // adds lines indicating velocity
-      _genamt: 80, // how many particles there are
+      _genamt: 50 + (twidth / 30), // how many particles there are
       _timecontinuity: false, // whether the noise progresses in 2 dimensions or 3 (time)
       _wrapping: true, // whether particles that hit the boundaries will 'respawn' or simulate forever
       _accmang: true, // whether particles angles accumulate based on noise or are decided by it
@@ -63,7 +64,7 @@ export class FlowfieldsComponent implements OnInit {
       } else {
         // if enough time has passed, run our code.
         me.timeout = false;
-  
+        me.justresized = true;
         me.opts = me.generateOpts(window.innerWidth);
         for(let i = 0; i < me.particles.length; i++) {
           me.particles[i].opts = me.opts;
@@ -98,6 +99,13 @@ export class FlowfieldsComponent implements OnInit {
         s.noStroke();
       }
       s.draw = () => {
+        while(this.particles.length < this.opts._genamt) {
+          this.particles.push(new Particle(s, this.n_, this.opts));
+        }
+        if(this.justresized) {
+          s.clear();
+          this.justresized = false;
+        }
         if(this.fMult >= this.OPACITY_INTERVAL) {
           this.fMult = 0;
           if(this.HAS_BACKGROUND) {
