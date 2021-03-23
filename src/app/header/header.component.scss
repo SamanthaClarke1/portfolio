@@ -59,6 +59,10 @@
       width: 40%;
       border-radius: 100%;
       box-shadow: $z-shadow-1;
+
+      @media(max-width: $xs-sm-breakpoint) {
+        width: 60%;
+      }
     }
   }
 }

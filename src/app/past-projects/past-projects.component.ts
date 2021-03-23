@@ -25,7 +25,7 @@ export class PastProjectsComponent implements OnInit {
     },
     {
       id: 1,
-      images: ["/assets/images/articdes1.png", "/assets/images/articdes1.png", "/assets/images/articdes2.png"],
+      images: ["/assets/images/Timesheets.png", "/assets/images/Timesheets2.png", "/assets/images/Timesheets3.png"],
       status: "Completed Dec, 2018",
       title: "Cumulus Timesheets",
       blurb: 
