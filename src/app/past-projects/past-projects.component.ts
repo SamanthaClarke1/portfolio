@@ -25,23 +25,39 @@ export class PastProjectsComponent implements OnInit {
     },
     {
       id: 1,
-      images: ["/assets/images/Timesheets.png", "/assets/images/Timesheets2.png", "/assets/images/Timesheets3.png"],
-      status: "Completed Dec, 2018",
-      title: "Cumulus Timesheets",
+      images: ["/assets/images/portfolio-aboutme.png", "/assets/images/displays.png", "/assets/images/portfolio-footer.png"],
+      status: "Completed Mar, 2021",
+      title: "Portfolio",
       blurb: 
 `
-  Cumulus Timesheets was a system created to allow management to monitor what their artists were spending their time on.
+  Made in under a week, "Portfolio" is a short personal project, 
+  made over the course of around a week, from design, to writing, to asset sourcing, to writing, to completion.
 
-  It allowed artists to create & submit timesheets,
-  and it even automagically filled out timesheets for them!
-  It also allowed admins to track what, where, and when users were working on projects, 
-  through the usage of some very neat graphing utilities.
+  It is made in Angular, with all code hosted on Firebase, 
+  for both the front end, and back end functionality.
 
-  I was the sole developer, from start to finish, and worked with management on the design of the site.
+  I worked on it alone, and it's completely open source, hosted on my personal Github.
 `
     },
     {
       id: 2,
+      images: ["/assets/images/brimm2.png", "/assets/images/brimm1.png", "/assets/images/brimm3.png"],
+      status: "Ended Aug, 2020",
+      title: "Brimm",
+      blurb: 
+`
+  Brimm was an action-adventure game, think "Earthbound", but in realtime!
+
+  It was a personal project, which I developed personally, on my own.
+  It was developed in godot, using GDScript (modified python) as the main scripting language.
+
+  I worked on it as a side-project, with the hopes of releasing it later on steam, and itch.io.
+  However, as passion faded later, and life called me to new projects,
+  I ended up moving on for brighter pastures.
+`
+    },
+    {
+      id: 3,
       images: ["/assets/images/neutronic1.png", "/assets/images/neutronic2.png", "/assets/images/neutronicui.png"],
       status: "Completed Mar, 2019",
       title: "Neutronic",
@@ -59,20 +75,20 @@ export class PastProjectsComponent implements OnInit {
 `
     },
     {
-      id: 3,
-      images: ["/assets/images/brimm2.png", "/assets/images/brimm3.png", "/assets/images/brimm1.png"],
-      status: "Ended August 2020",
-      title: "Brimm",
+      id: 4,
+      images: ["/assets/images/Timesheets.png", "/assets/images/Timesheets2.png", "/assets/images/Timesheets3.png"],
+      status: "Completed Dec, 2018",
+      title: "Cumulus Timesheets",
       blurb: 
 `
-  Brimm was an action-adventure game, think "Earthbound", but in realtime!
+  Cumulus Timesheets was a system created to allow management to monitor what their artists were spending their time on.
 
-  It was a personal project, which I developed personally, on my own.
-  It was developed in godot, using GDScript (modified python) as the main scripting language.
+  It allowed artists to create & submit timesheets,
+  and it even automagically filled out timesheets for them!
+  It also allowed admins to track what, where, and when users were working on projects, 
+  through the usage of some very neat graphing utilities.
 
-  I worked on it as a side-project, with the hopes of releasing it later on steam, and itch.io.
-  However, as passion faded later, and life called me to new projects,
-  I ended up moving on for brighter pastures.
+  I was the sole developer, from start to finish, and worked with management on the design of the site.
 `
     }
   ]
