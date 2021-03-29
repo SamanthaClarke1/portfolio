@@ -30,8 +30,8 @@ export class PastProjectsComponent implements OnInit {
       title: "Portfolio",
       blurb: 
 `
-  Made in under a week, "Portfolio" is a short personal project, 
-  made over the course of around a week, from design, to writing, to asset sourcing, to writing, to completion.
+  "Portfolio" is a short personal project (the one you're currently looking at!),
+  made over the course of around a week, from design, to writing, to asset sourcing, to coding, to completion.
 
   It is made in Angular, with all code hosted on Firebase, 
   for both the front end, and back end functionality.
